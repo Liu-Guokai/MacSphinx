@@ -37,5 +37,5 @@ html_static_path = ['_static']
 # support markdown
 extensions = [
      'recommonmark',
-     'sphinx_markdown_tables'
+    #  'sphinx_markdown_tables'
  ]
