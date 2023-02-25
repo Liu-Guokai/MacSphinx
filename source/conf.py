@@ -39,3 +39,13 @@ extensions = [
      'recommonmark',
     #  'sphinx_markdown_tables'
  ]
+
+
+
+html_sidebars = {
+    '**': [
+        'versioning.html',
+    ],
+}
+smv_latest_version = 'v3.0' 
+sitemap_url_scheme = "{link}"
