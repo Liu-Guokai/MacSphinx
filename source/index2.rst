@@ -5,9 +5,8 @@ contain the root `toctree` directive.
 
 Welcome to LiuGuokai's documentation!
 =================================
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+.. autosummary::
+     :toctree: stubs
 
-   2024/2020/index
-   2024/2021/index
+     2024/2020/index
+     2024/2021/index

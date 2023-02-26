@@ -37,9 +37,11 @@ html_static_path = ['_static']
 # support markdown
 extensions = [
      'recommonmark',
+     'sphinx.ext.autosummary',
     #  'sphinx_markdown_tables'
  ]
-
+autodoc_default_flags = ['members']
+autosummary_generate = True
 
 
 html_sidebars = {
