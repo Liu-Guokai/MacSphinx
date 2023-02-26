@@ -9,5 +9,4 @@ Welcome to LiuGuokai's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   2024/2020/index
-   2024/2021/index
+   Years/index

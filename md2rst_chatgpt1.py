@@ -2,7 +2,7 @@ import os
 import subprocess
 
 input_folder = 'markdown'
-output_folder = 'source/2024'
+output_folder = 'source/Years'
 
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)

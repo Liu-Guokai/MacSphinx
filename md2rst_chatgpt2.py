@@ -1,58 +1,51 @@
-# import os
-
-# sphinx_dir = 'source/2024'
-
-# index_file_path = os.path.join(sphinx_dir, 'index.rst')
-
-# with open(index_file_path, 'w') as f:
-#     f.write(f"{os.path.basename(sphinx_dir)}\n{'='*len(os.path.basename(sphinx_dir))}\n\n")
-#     f.write(".. toctree::\n")
-#     f.write("   :maxdepth: 2\n\n")
-#     for root, dirs, files in os.walk(sphinx_dir):
-#         rel_path = os.path.relpath(root, sphinx_dir)
-#         for filename in files:
-#             if filename.endswith('.rst') and filename != 'index.rst':
-#                 f.write(f"   {os.path.join(rel_path, os.path.splitext(filename)[0])}\n")
-#     f.write('\n')
-
-
-
 import os
 
 
 # os.remove('source/2024')
 os.system('python md2rst_chatgpt1.py')
 
+import os
+
+def generate_index_files(root_path):
+    for dirpath, dirnames, filenames in os.walk(root_path):
+        # Sort directories and files alphabetically
+        dirnames.sort()
+        filenames.sort()
+        
+        # Create the index file
+        index_file_path = os.path.join(dirpath, "index.rst")
+        with open(index_file_path, 'w') as f:
+            # Write the folder name to the index file
+            folder_name = os.path.basename(dirpath)
+            f.write(f"{folder_name}\n")
+            f.write("=" * len(folder_name) + "\n\n")
+            
+            # Write the table of contents to the index file
+            f.write(".. toctree::\n")
+            f.write("   :maxdepth: 2\n\n")
+            
+            for filename in filenames:
+                # Ignore hidden files and non-.rst files
+                if filename.startswith(".") or not filename.endswith(".rst") or filename == "index.rst":
+                    continue
+                
+                # Write the file name to the index file
+                f.write(f"   {os.path.splitext(filename)[0]}\n")
+            
+            # Write a blank line at the end of the file
+            f.write("\n")
+            
+            # Generate index files for subfolders
+            for dirname in dirnames:
+                generate_index_files(os.path.join(dirpath, dirname))
+                
+                # Write a link to the subfolder's index file in the parent index file
+                subfolder_index_path = os.path.join(dirname, "index")
+                f.write(f"   {subfolder_index_path}\n")
+            
+            # Write a blank line at the end of the file
+            f.write("\n")
 
 
-def generate_index_file(folder_path):
-    """Generate .rst index file for a folder containing subfolders."""
 
-    # Check if the folder contains subfolders
-    subfolders = [subfolder for subfolder in os.listdir(folder_path)
-                  if os.path.isdir(os.path.join(folder_path, subfolder))]
-    if not subfolders:
-        # The folder does not contain any subfolders, so no index file is needed
-        return
-
-    # Generate the .rst index file
-    index_path = os.path.join(folder_path, 'index.rst')
-    with open(index_path, 'w') as f:
-        f.write('{}\n'.format(folder_path))
-        f.write('{}\n'.format('=' * len(folder_path)))
-        f.write('\n')
-
-        for subfolder in sorted(subfolders):
-            subfolder_path = os.path.join(folder_path, subfolder)
-            f.write('{}\n'.format(subfolder))
-            f.write('{}\n'.format('-' * len(subfolder)))
-            f.write('\n')
-            generate_index_file(subfolder_path)
-
-        for file in sorted(os.listdir(folder_path)):
-            if file.endswith('.rst'):
-                file_path = os.path.join(folder_path, file)
-                f.write('{}\n'.format(file))
-                f.write('{}\n'.format('-' * len(file)))
-                f.write('\n')
-generate_index_file('source/2024')
+generate_index_files('source/Years')
