@@ -1,11 +1,28 @@
 import os
+import subprocess
 
 
-# os.remove('source/2024')
-os.system('python md2rst_chatgpt1.py')
+# Convert .md files to .rst files
+input_folder = 'markdown'
+output_folder = 'source/Years'
 
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+for root, dirs, files in os.walk(input_folder):
+    for filename in files:
+        if filename.endswith('.md'):
+            input_path = os.path.join(root, filename)
+            rel_path = os.path.relpath(input_path, input_folder)
+            output_path = os.path.join(output_folder, os.path.splitext(rel_path)[0] + '.rst')
+            output_folder_path = os.path.dirname(output_path)
+            if not os.path.exists(output_folder_path):
+                os.makedirs(output_folder_path)
+            subprocess.run(['pandoc', '-f', 'markdown', '-t', 'rst', '-o', output_path, input_path])
+
+
+# Generate .rst index files 
 import os
-
 def generate_index_files(root_path):
     for dirpath, dirnames, filenames in os.walk(root_path):
         # Sort directories and files alphabetically
@@ -46,6 +63,6 @@ def generate_index_files(root_path):
             # Write a blank line at the end of the file
             f.write("\n")
 
+generate_index_files(output_folder)
 
 
-generate_index_files('source/Years')

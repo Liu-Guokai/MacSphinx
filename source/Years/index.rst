@@ -2,7 +2,7 @@ Years
 =====
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
 
    2020/index
