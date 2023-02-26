@@ -9,7 +9,7 @@
    import numpy as np
    import pandas as pd 
 
-.. figure:: https://img-blog.csdnimg.cn/92944d5ad44b4536a6f7a9c7a1705c67.png
+.. image:: https://img-blog.csdnimg.cn/92944d5ad44b4536a6f7a9c7a1705c67.png
    :alt: 在这里插入图片描述
 
    在这里插入图片描述
